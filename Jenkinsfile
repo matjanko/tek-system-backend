@@ -4,7 +4,7 @@ pipeline {
         stage("Permission") {
             agent any
             steps {
-                sh "chown root:jenkins /var/lib/docker"
+                sh "chown root:jenkins $var/lib/docker"
             }
         }
 
