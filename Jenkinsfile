@@ -8,7 +8,7 @@ pipeline {
                 }
             }
             steps {
-                sh'cp home/mjankowski/properties/tek-system-backend/application-prod.properties var/lib/docker/volumes/jenkins-data/workspace/tek-system-backend/src/main/resources/'
+                sh'cp -r /home/mjankowski/properties/tek-system-backend/application-prod.properties /var/lib/docker/volumes/jenkins-data/_data/workspace/tek-system-backend-develop/src/main/resources/'
                 sh 'mvn package'
             }
         }
