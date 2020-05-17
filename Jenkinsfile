@@ -1,16 +1,14 @@
 pipeline {
     agent none
     stages {
-        stage('Configuration') {
-            steps {
-                echo "Configuration..."
-            }
-        }
         stage('Maven build') {
             agent {
                 docker {
                     image 'maven:3-alpine'
                 }
+            }
+            steps {
+                echo "Copy configuration"
             }
             steps {
                 sh 'mvn package'
