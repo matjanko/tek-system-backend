@@ -9,8 +9,6 @@ pipeline {
             }
             steps {
                 echo "Copy configuration"
-            }
-            steps {
                 sh 'mvn package'
             }
         }
