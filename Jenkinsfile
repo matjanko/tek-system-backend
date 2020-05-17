@@ -9,8 +9,6 @@ pipeline {
             }
             steps {
                 sh 'mvn package'
-                sh 'cd target/'
-                sh 'java -jar tek-system-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod'
             }
         }
         stage('Docker build') {
