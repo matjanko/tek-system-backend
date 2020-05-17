@@ -1,13 +1,6 @@
 pipeline {
     agent none
     stages {
-        stage("Permission") {
-            agent any
-            steps {
-                sh "chown root:jenkins /usr/bin/docker"
-            }
-        }
-
         stage('Maven build') {
             agent {
                 docker {
