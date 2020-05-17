@@ -8,8 +8,9 @@ pipeline {
                 }
             }
             steps {
-                sh'cp -r /home/mjankowski/properties/tek-system-backend/application-prod.properties /var/lib/docker/volumes/jenkins-data/_data/workspace/tek-system-backend-develop/src/main/resources/'
                 sh 'mvn package'
+                sh 'cd target/'
+                sh 'java -jar tek-system-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod'
             }
         }
         stage('Docker build') {
