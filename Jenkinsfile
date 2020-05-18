@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Docker build') {
             steps {
-                echo "Docker build"
+                sh 'docker build --tag tek-system-backend'
             }
         }
         stage('Docker run') {
