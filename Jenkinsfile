@@ -12,6 +12,7 @@ pipeline {
             }
         }
         stage('Docker build') {
+            agent docker
             steps {
                 sh 'docker build --tag tek-system-backend'
             }
