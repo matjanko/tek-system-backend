@@ -13,9 +13,8 @@ pipeline {
         }
         stage('Docker build') {
             steps {
-                script {
-                    docker.build tek-system-backend
-                }
+                sh 'docker build -t tek-system-backend '
+
             }
         }
         stage('Docker run') {
