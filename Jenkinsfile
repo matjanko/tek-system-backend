@@ -1,4 +1,5 @@
 node {
+    def image
     stage('Clone repository') {
         checkout scm
     }
@@ -8,12 +9,13 @@ node {
         }
     }
     stage('Container inspect') {
-
+        docker.inspect()
     }
     stage('Container build') {
-        docker.build("tek-system-backend")
+        image = docker.build("tek-system-backend")
     }
     stage('Container run') {
-
+        image.run("-d -p 9090:9090 --name tek-system-backend")
+        sleep 20
     }
 }
