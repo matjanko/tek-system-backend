@@ -28,8 +28,8 @@ pipeline {
             steps {
                 sh '''
                     echo ${env.test}
+                    docker build -t tek-system-backend .
                 '''
-                sh "docker build -t tek-system-backend ."
             }
         }
         stage('Docker run') {
