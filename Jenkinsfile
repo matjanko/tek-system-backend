@@ -1,10 +1,6 @@
 pipeline {
     agent any
     stages {
-
-        script {
-            env.test="test"
-        }
         stage('Maven build') {
             agent {
                 docker {
@@ -16,6 +12,9 @@ pipeline {
             }
         }
         stage('Docker inspect') {
+            script {
+                env.test="test"
+            }
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh '''
