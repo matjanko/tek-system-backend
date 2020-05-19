@@ -12,9 +12,6 @@ pipeline {
             }
         }
         stage('Docker inspect') {
-            when {
-                sh "docker inspect -f . tek-system-backend"
-            }
             steps {
                 sh "docker stop tek-system-backend"
                 sh "docker rm tek-system-backend"
