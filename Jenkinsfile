@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Docker run') {
             steps {
-                echo "Docker run"
+                sh 'docker run -p 9090:9090 tek-system-backend'
             }
         }
     }
