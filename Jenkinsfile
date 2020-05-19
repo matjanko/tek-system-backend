@@ -1,6 +1,7 @@
 node {
     def image
     def imageName = "tek-system-backend"
+
     stage('Clone repository') {
         checkout scm
     }
@@ -20,7 +21,7 @@ node {
         image = docker.build(imageName)
     }
     stage('Container run') {
-        image.run("-p 9090:9090 --name ${imageName}")
+        image.run("-p 9090:9090 --name ${imageName} --restart=always")
         sleep 40
     }
 }
