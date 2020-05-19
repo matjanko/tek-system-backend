@@ -11,7 +11,7 @@ node {
         }
     }
     stage('Container inspect') {
-        def isRunning = sh (script: "docker ps -qa -f name=${imageName}")
+        def isRunning = sh(script: "docker ps -qa -f name=${imageName}", returnStatus: true)
         if (isRunning) {
             sh "docker stop ${imageName}"
             sh "docker rm ${imageName}"
