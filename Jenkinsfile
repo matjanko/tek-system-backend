@@ -21,6 +21,6 @@ node {
     }
     stage('Container run') {
         image.run("-p 9090:9090 --name ${imageName}")
-        sleep 10
+        sleep 40
     }
 }
