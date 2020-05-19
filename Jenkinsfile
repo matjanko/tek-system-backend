@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Docker inspect') {
             steps {
-                catchError {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh '''
                         docker stop tek-system-backend
                         docker rm tek-system-backend
