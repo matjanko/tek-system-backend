@@ -1,27 +1,33 @@
-node {
-    def image
-    def imageName = "tek-system-backend"
-
-    stage('Clone repository') {
-        checkout scm
-    }
-    stage('Maven build') {
-        docker.image('maven:3-alpine').inside() {
-            sh 'mvn package'
+pipeline {
+    agent any
+    stages {
+        stage('Maven build') {
+            agent {
+                docker {
+                    image 'maven:3-alpine'
+                }
+            }
+            steps {
+                sh 'mvn package'
+            }
         }
-    }
-    stage('Container inspect') {
-        def isRunning = sh(script: "docker ps -qa -f name=${imageName}", returnStatus: true)
-        if (isRunning) {
-            sh "docker stop ${imageName}"
-            sh "docker rm ${imageName}"
+        stage('Docker inspect') {
+            steps {
+                sh '''
+                    docker stop tek-system-backend || true
+                    docker rm tek-system-backend || true
+                '''
+            }
         }
-    }
-    stage('Container build') {
-        image = docker.build(imageName)
-    }
-    stage('Container run') {
-        image.run("-p 9090:9090 --name ${imageName} --restart=always")
-        sleep 40
+        stage('Docker build') {
+            steps {
+                sh "docker build -t tek-system-backend ."
+            }
+        }
+        stage('Docker run') {
+            steps {
+                sh "docker run -d -p 9090:9090 --name tek-system-backend tek-system-backend"
+            }
+        }
     }
 }
