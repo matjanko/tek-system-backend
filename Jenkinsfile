@@ -12,10 +12,10 @@ pipeline {
             }
         }
         stage('Docker inspect') {
-            script {
-                env.test="test"
-            }
             steps {
+                script {
+                    env.test="test"
+                }
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh '''
                         docker stop tek-system-backend
