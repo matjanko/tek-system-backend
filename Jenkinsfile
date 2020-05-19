@@ -9,7 +9,7 @@ node {
         }
     }
     stage('Container inspect') {
-        docker.inspect()
+
     }
     stage('Container build') {
         image = docker.build("tek-system-backend")
