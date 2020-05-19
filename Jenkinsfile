@@ -9,10 +9,10 @@ node {
         }
     }
     stage('Container inspect') {
-        def isRunning = sh (script: ' docker inspect --format=\'{{.State.Running}}\' tek-system-backend', returnStdout: true)
+        def isRunning = sh "docker inspect --format=\'{{.State.Running}}\' tek-system-backend"
         if (isRunning) {
-            docker.stop("tek-system-backend")
-            docker.remove("tek-system-backend")
+            sh "docker stop tek-system-backend"
+            sh "docker rm tek-system-backend"
         }
     }
     stage('Container build') {
