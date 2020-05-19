@@ -1,5 +1,6 @@
 node {
     def image
+    def imageName = "tek-system-backend"
     stage('Clone repository') {
         checkout scm
     }
@@ -9,17 +10,17 @@ node {
         }
     }
     stage('Container inspect') {
-        def isRunning = sh(script: 'docker inspect --format=\'{{.State.Running}}\' tek-system-backend', returnStatus: true)
+        def isRunning = sh(script: "docker inspect --format=\'{{.State.Running}}\' ${imageName}", returnStatus: true)
         if (isRunning == 0) {
-            sh "docker stop tek-system-backend"
-            sh "docker rm tek-system-backend"
+            sh "docker stop ${imageName}"
+            sh "docker rm ${imageName}"
         }
     }
     stage('Container build') {
-        image = docker.build("tek-system-backend")
+        image = docker.build(imageName)
     }
     stage('Container run') {
-        image.run("-p 9090:9090 --name tek-system-backend")
+        image.run("-p 9090:9090 --name ${imageName}")
         sleep 10
     }
 }
