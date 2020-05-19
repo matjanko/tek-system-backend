@@ -27,7 +27,6 @@ pipeline {
         stage('Docker build') {
             steps {
                 sh '''
-                    echo ${env.test}
                     docker build -t tek-system-backend .
                 '''
             }
