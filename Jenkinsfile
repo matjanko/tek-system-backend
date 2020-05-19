@@ -27,13 +27,13 @@ pipeline {
         stage('Docker build') {
             steps {
                 sh '''
-                    docker build -t tek-system-backend .
+                    docker build -t tek-system-backend:${env.BUILD_NUMBER} .
                 '''
             }
         }
         stage('Docker run') {
             steps {
-                sh "docker run -d -p 9090:9090 --name tek-system-backend tek-system-backend"
+                sh "docker run -d -p 9090:9090 --name tek-system-backend tek-system-backend:${env.BUILD_NUMBER}"
             }
         }
     }
