@@ -12,14 +12,15 @@ pipeline {
             }
         }
         stage('Docker build') {
-            def isRunning = sh (script: "docker inspect -f '{{.State.Running}}' tek-system-backend", returnStatus: true)
-            if (isRunning) {
-                sh "docker stop tek-system-backend"
-                sh "docker rm tek-system-backend"
+            script{
+                def isRunning = sh (script: "docker inspect -f '{{.State.Running}}' tek-system-backend", returnStatus: true)
+                if (isRunning) {
+                    sh "docker stop tek-system-backend"
+                    sh "docker rm tek-system-backend"
+                }
+
+                sh "docker build -t tek-system-backend ."
             }
-
-            sh "docker build -t tek-system-backend ."
-
         }
         stage('Docker run') {
             steps {
