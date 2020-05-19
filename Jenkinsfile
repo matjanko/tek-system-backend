@@ -1,6 +1,10 @@
 pipeline {
     agent any
     stages {
+
+        script {
+            env.test="test"
+        }
         stage('Maven build') {
             agent {
                 docker {
@@ -19,11 +23,13 @@ pipeline {
                         docker rm tek-system-backend
                     '''
                 }
-                echo currentBuild.result
             }
         }
         stage('Docker build') {
             steps {
+                sh '''
+                    echo ${env.test}
+                '''
                 sh "docker build -t tek-system-backend ."
             }
         }
