@@ -1,10 +1,8 @@
 node {
     checkout scm
     stage('Maven build') {
-        def value = true;
-
-        if (value) {
-            echo "Działa"
+        docker.image('maven:3-alpine').inside() {
+            sh 'mvn package'
         }
     }
 }
