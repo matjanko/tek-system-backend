@@ -11,7 +11,10 @@ node {
         }
     }
     stage('Container inspect') {
-
+        if (sh "docker ps -qa -f name=${imageName}") {
+            sh "docker stop ${imageName}"
+            sh "docker rm ${imageName}"
+        }
     }
     stage('Container build') {
         image = docker.build(imageName)
