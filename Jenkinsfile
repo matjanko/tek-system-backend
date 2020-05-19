@@ -11,14 +11,17 @@ pipeline {
                 sh 'mvn package'
             }
         }
+        stage('Docker inspect') {
+            when {
+                sh "docker inspect -f . tek-system-backend"
+            }
+            steps {
+                sh "docker stop tek-system-backend"
+                sh "docker rm tek-system-backend"
+            }
+        }
         stage('Docker build') {
-            script{
-                def isRunning = sh (script: "docker inspect -f '{{.State.Running}}' tek-system-backend", returnStatus: true)
-                if (isRunning) {
-                    sh "docker stop tek-system-backend"
-                    sh "docker rm tek-system-backend"
-                }
-
+            steps {
                 sh "docker build -t tek-system-backend ."
             }
         }
