@@ -13,10 +13,13 @@ pipeline {
         }
         stage('Docker inspect') {
             steps {
-                sh '''
-                    docker stop tek-system-backend || true
-                    docker rm tek-system-backend || true
-                '''
+                catchError {
+                    sh '''
+                        docker stop tek-system-backend
+                        docker rm tek-system-backend
+                    '''
+                }
+                echo currentBuild.result
             }
         }
         stage('Docker build') {
