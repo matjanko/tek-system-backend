@@ -11,8 +11,8 @@ node {
         }
     }
     stage('Container inspect') {
-        def isRunning = sh(script: "docker inspect --format=\'{{.State.Running}}\' ${imageName}", returnStatus: true)
-        if (isRunning == 0) {
+        boolean isRunning = sh(script: "docker inspect --format=\'{{.State.Running}}\' ${imageName}", returnStatus: true)
+        if (isRunning) {
             sh "docker stop ${imageName}"
             sh "docker rm ${imageName}"
         }
