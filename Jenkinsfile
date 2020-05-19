@@ -1,6 +1,7 @@
 pipeline {
     agent any
     stages {
+        def containerName = "tek-system-backend"
         stage('Maven build') {
             agent {
                 docker {
@@ -12,14 +13,20 @@ pipeline {
             }
         }
         stage('Docker build') {
-            steps {
-                sh 'docker build -t tek-system-backend .'
-
+        }
+        stage('Docker build') {
+            def isRunning = sh (script: "docker inspect -f '{{.State.Running}}' ${containerName}", returnStatus: true)
+            if (isRunning) {
+                sh "docker stop ${containerName}"
+                sh "docker rm ${containerName}"
             }
+
+            sh "docker build -t ${containerName} ."
+
         }
         stage('Docker run') {
             steps {
-                sh 'docker run -d -p 9090:9090 tek-system-backend --name tek-system-backend'
+                sh "docker run -d -p 9090:9090 ${containerName} --name ${containerName}"
             }
         }
     }
