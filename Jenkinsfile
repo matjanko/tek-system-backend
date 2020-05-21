@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        stage('Checkout code') {
+            steps {
+                checkout scm
+            }
+        }
         stage('Maven build') {
             agent {
                 docker {
