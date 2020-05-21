@@ -1,42 +1,34 @@
-pipeline {
-    agent any
-    stages {
-        stage('Maven build') {
-            agent {
-                docker {
-                    image 'maven:3-alpine'
-                }
-            }
-            steps {
-                sh '''
-                    mvn clean
-                    mvn package                 
-                '''
-            }
+node {
+    def container
+
+    stage("Checkout") {
+        checkout scm
+    }
+    stage("Maven build") {
+        docker.image('maven:3-alpine').inside() {
+            sh '''
+                mvn clean
+                mvn package
+            '''
         }
-        stage('Docker inspect') {
-            steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh '''
-                        docker stop tek-system-backend
-                        docker rm tek-system-backend
-                    '''
-                }
-            }
+    }
+    stage("Docker stop") {
+        try {
+            sh '''
+                docker stop tek-system-backend
+                docker rm tek-system-backend
+            '''
+        } catch (Exception e) {
+            e.getMessage()
         }
-        stage('Docker build') {
-            steps {
-                sh '''
-                    docker build -t tek-system-backend:$BUILD_NUMBER . 
-                '''
-            }
-        }
-        stage('Docker run') {
-            steps {
-                sh '''
-                    docker run -d -p 9090:9090 --name tek-system-backend tek-system-backend:$BUILD_NUMBER
-                '''
-            }
-        }
+    }
+    stage("Docker build") {
+        container = docker.build('tek-system-backend:$BUILD_NUMBER')
+    }
+    stage("Docker run") {
+        container.run('-p 9090:9090 --name tek-system-backend')
+    }
+    stage("Clean workspace") {
+
     }
 }
