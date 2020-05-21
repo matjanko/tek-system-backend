@@ -1,11 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout code') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Maven build') {
             agent {
                 docker {
@@ -32,14 +27,14 @@ pipeline {
         stage('Docker build') {
             steps {
                 sh '''
-                    docker build -t tek-system-backend:$BUILD_NUMBER .
+                    docker build -t tek-system-backend .
                 '''
             }
         }
         stage('Docker run') {
             steps {
                 sh '''
-                    docker run -d -p 9090:9090 --name tek-system-backend tek-system-backend:$BUILD_NUMBER
+                    docker run -d -p 9090:9090 --name tek-system-backend tek-system-backend
                 '''
             }
         }
