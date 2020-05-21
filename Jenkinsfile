@@ -16,9 +16,6 @@ pipeline {
         }
         stage('Docker inspect') {
             steps {
-                script {
-                    env.test="test"
-                }
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh '''
                         docker stop tek-system-backend
@@ -30,7 +27,7 @@ pipeline {
         stage('Docker build') {
             steps {
                 sh '''
-                    docker build -t tek-system-backend:$BUILD_NUMBER .
+                    docker build -t tek-system-backend:$BUILD_NUMBER . -f Dockerfile
                 '''
             }
         }
