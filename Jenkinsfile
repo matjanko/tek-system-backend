@@ -8,7 +8,10 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn package'
+                sh '''
+                    mvn clean
+                    mvn package                 
+                '''
             }
         }
         stage('Docker inspect') {
@@ -27,14 +30,14 @@ pipeline {
         stage('Docker build') {
             steps {
                 sh '''
-                    docker build -t tek-system-backend .
+                    docker build -t tek-system-backend:$BUILD_NUMBER .
                 '''
             }
         }
         stage('Docker run') {
             steps {
                 sh '''
-                    docker run -d -p 9090:9090 --name tek-system-backend tek-system-backend
+                    docker run -d -p 9090:9090 --name tek-system-backend tek-system-backend:$BUILD_NUMBER
                 '''
             }
         }
