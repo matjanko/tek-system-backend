@@ -12,6 +12,9 @@ node {
             '''
         }
     }
+    stage("Docker build") {
+        container = docker.build('tek-system-backend:$BUILD_NUMBER')
+    }
     stage("Docker stop") {
         try {
             sh '''
@@ -22,11 +25,8 @@ node {
             e.getMessage()
         }
     }
-    stage("Docker build") {
-        container = docker.build('tek-system-backend:$BUILD_NUMBER')
-    }
     stage("Docker run") {
-        container.run('-p 9090:9090 --name tek-system-backend')
+        container.run('-p 9090:9090 --name tek-system-backend --restart=always')
     }
     stage("Clean workspace") {
 
