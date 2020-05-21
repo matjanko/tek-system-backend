@@ -27,7 +27,7 @@ pipeline {
         stage('Docker build') {
             steps {
                 sh '''
-                    docker build -t tek-system-backend:$BUILD_NUMBER . -f Dockerfile
+                    docker build -t tek-system-backend:$BUILD_NUMBER . 
                 '''
             }
         }
