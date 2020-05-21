@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,10 +22,15 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-
     @GetMapping
     @ApiOperation(value = "Get all customers")
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         return new ResponseEntity<>(customerService.getAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Get customer by id")
+    public ResponseEntity<CustomerDto> getCustomers(@PathVariable Long id) {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -33,7 +33,9 @@ pipeline {
         }
         stage('Docker run') {
             steps {
-                sh "docker run -d -p 9090:9090 --name tek-system-backend tek-system-backend:$BUILD_NUMBER"
+                sh '''
+                    docker run -d -p 9090:9090 --name tek-system-backend tek-system-backend:$BUILD_NUMBER
+                '''
             }
         }
     }
