@@ -1,4 +1,4 @@
-package com.github.matjanko.teksystem.config;
+package com.github.matjanko.teksystem.base.config;
 
 
 import org.modelmapper.ModelMapper;
