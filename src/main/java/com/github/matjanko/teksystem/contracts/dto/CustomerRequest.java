@@ -2,9 +2,10 @@ package com.github.matjanko.teksystem.contracts.dto;
 
 import lombok.Data;
 
-@Data
-public class CustomerDto {
+import javax.validation.constraints.NotBlank;
 
-    private Long id;
+@Data
+public class CustomerRequest {
+    @NotBlank
     private String name;
 }
