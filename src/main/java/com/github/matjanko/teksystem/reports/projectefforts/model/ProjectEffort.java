@@ -16,6 +16,9 @@ public class ProjectEffort {
     @Id
     private Long id;
 
+    @Column(name ="PROJECT_ID")
+    private Long projectId;
+
     @Column(name ="PROJECT_SYMBOL")
     private String projectSymbol;
 
