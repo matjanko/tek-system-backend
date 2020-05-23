@@ -16,20 +16,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/reports/project-efforts")
-@Api(tags = "Project efforts")
+@RequestMapping("/api/effort")
+@Api(tags = "Effort")
 @RequiredArgsConstructor
-public class ProjectEffortsController {
+public class EffortController {
 
     private final ProjectEffortRepository repository;
     private final ModelMapper mapper;
 
-    @GetMapping
-    @ApiOperation(value = "Get all project effort")
+    @GetMapping("/projects")
+    @ApiOperation(value = "Get all project efforts")
     public ResponseEntity<List<ProjectEffortResponse>> getAllProjectEffort() {
-        List<ProjectEffortResponse> projectefforts = repository.findAll().stream()
+        List<ProjectEffortResponse> projectEfforts = repository.findAll().stream()
                 .map(p -> mapper.map(p, ProjectEffortResponse.class))
                 .collect(Collectors.toList());
-        return new ResponseEntity<>(projectefforts, HttpStatus.OK);
+        return new ResponseEntity<>(projectEfforts, HttpStatus.OK);
     }
 }
