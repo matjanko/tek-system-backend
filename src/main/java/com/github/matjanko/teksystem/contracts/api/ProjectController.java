@@ -2,7 +2,6 @@ package com.github.matjanko.teksystem.contracts.api;
 
 import com.github.matjanko.teksystem.contracts.dto.project.ProjectRequest;
 import com.github.matjanko.teksystem.contracts.dto.project.ProjectResponse;
-import com.github.matjanko.teksystem.contracts.model.project.ProjectRepository;
 import com.github.matjanko.teksystem.contracts.services.ProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,8 +34,13 @@ public class ProjectController {
 
     @PostMapping
     @ApiOperation(value = "Add project")
-    public ResponseEntity<Long> postProject(@RequestBody ProjectRequest project) {
-        return new ResponseEntity<>(projectService.add(project), HttpStatus.CREATED);
+    public ResponseEntity<?> postProject(@RequestBody ProjectRequest project) {
+        try {
+            Long projectId = projectService.add(project);
+            return new ResponseEntity<>(projectId, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
