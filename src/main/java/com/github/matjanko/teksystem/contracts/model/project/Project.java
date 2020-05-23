@@ -21,9 +21,9 @@ public class Project {
     private Character symbol;
 
     @Column(name = "PROJECT_INDEX")
-    private Long index;
+    private Long number;
 
     @ManyToOne
-    @JoinColumn(name = "CUSTOMER_ID")
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     private Customer customer;
 }

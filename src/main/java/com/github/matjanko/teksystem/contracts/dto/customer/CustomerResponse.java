@@ -1,4 +1,4 @@
-package com.github.matjanko.teksystem.contracts.dto;
+package com.github.matjanko.teksystem.contracts.dto.customer;
 
 import lombok.Data;
 

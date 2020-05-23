@@ -1,9 +1,10 @@
-package com.github.matjanko.teksystem.contracts.dto;
+package com.github.matjanko.teksystem.contracts.dto.project;
 
+import com.github.matjanko.teksystem.contracts.dto.customer.CustomerResponse;
 import lombok.Data;
 
 @Data
-public class ProjectDto {
+public class ProjectResponse {
 
     private Long id;
     private String name;

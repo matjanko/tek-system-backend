@@ -1,16 +1,16 @@
 package com.github.matjanko.teksystem.contracts.api;
 
-import com.github.matjanko.teksystem.contracts.dto.ProjectDto;
+import com.github.matjanko.teksystem.contracts.dto.project.ProjectRequest;
+import com.github.matjanko.teksystem.contracts.dto.project.ProjectResponse;
 import com.github.matjanko.teksystem.contracts.model.project.ProjectRepository;
+import com.github.matjanko.teksystem.contracts.services.ProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,15 +21,22 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProjectController {
 
-    private final ProjectRepository projectRepository;
+    private final ProjectService projectService;
     private final ModelMapper mapper;
 
     @GetMapping
     @ApiOperation(value = "Get all projects")
-    public ResponseEntity<List<ProjectDto>> getAllProjects() {
-        List<ProjectDto> projects = projectRepository.findAll().stream()
-                .map(p -> mapper.map(p, ProjectDto.class))
+    public ResponseEntity<List<ProjectResponse>> getAllProjects() {
+        List<ProjectResponse> projects = projectService.getAll().stream()
+                .map(p -> mapper.map(p, ProjectResponse.class))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
+
+    @PostMapping
+    @ApiOperation(value = "Add project")
+    public ResponseEntity<Long> postProject(@RequestBody ProjectRequest project) {
+        return new ResponseEntity<>(projectService.add(project), HttpStatus.CREATED);
+    }
+
 }
