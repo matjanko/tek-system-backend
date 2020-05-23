@@ -1,5 +1,6 @@
 package com.github.matjanko.teksystem.dictonaries.api;
 
+import com.github.matjanko.teksystem.dictonaries.model.Dictionary;
 import com.github.matjanko.teksystem.dictonaries.model.projectstage.ProjectStage;
 import com.github.matjanko.teksystem.dictonaries.model.projectstage.ProjectStageRepository;
 import io.swagger.annotations.Api;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +29,7 @@ public class DictionaryController {
     public ResponseEntity<List<ProjectStage>> getAllProjectStages() {
         List<ProjectStage> projectStages = projectStageRepository.findAll()
                 .stream()
-                .sorted()
+                .sorted(Comparator.comparing(Dictionary::getName))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(projectStages, HttpStatus.OK);
