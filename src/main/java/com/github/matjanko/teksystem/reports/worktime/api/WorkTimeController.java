@@ -1,7 +1,6 @@
 package com.github.matjanko.teksystem.reports.worktime.api;
 
 import com.github.matjanko.teksystem.reports.worktime.dto.MonthlyWorkTimeResponse;
-import com.github.matjanko.teksystem.reports.worktime.model.MonthlyWorkTime;
 import com.github.matjanko.teksystem.reports.worktime.model.MonthlyWorkTimeRepository;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class WorkTimeController {
 
     @GetMapping("/all/year/{year}/month/{month}")
     public ResponseEntity<List<MonthlyWorkTimeResponse>> getMonthlyWorkTime(
-            @PathVariable Integer year, @PathVariable Integer month) {
+            @PathVariable String year, @PathVariable String month) {
 
         List<MonthlyWorkTimeResponse> workTimes = monthlyWorkTimeRepository
                 .findAllByYearAndMonth(year, month)

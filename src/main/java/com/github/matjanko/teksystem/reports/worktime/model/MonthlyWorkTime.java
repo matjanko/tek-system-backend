@@ -20,12 +20,12 @@ public class MonthlyWorkTime {
     private String employeeName;
 
     @Column(name = "YEAR")
-    private Integer year;
+    private String year;
 
     @Column(name = "MONTH")
-    private Integer month;
+    private String month;
 
     @Column(name = "TOTAL_TIME")
-    private Double hours;
+    private String hours;
 
 }

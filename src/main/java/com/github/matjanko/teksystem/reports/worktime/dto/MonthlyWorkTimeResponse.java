@@ -8,5 +8,5 @@ public class MonthlyWorkTimeResponse {
 
     private Long employeeId;
     private String employeeName;
-    private Double hours;
+    private String hours;
 }
