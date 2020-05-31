@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "V_PROJECT_EFFORT")
+@Table(name = "V_REPORTS_PROJECT_EFFORT")
 @Getter @Setter
 public class ProjectEffort {
 
