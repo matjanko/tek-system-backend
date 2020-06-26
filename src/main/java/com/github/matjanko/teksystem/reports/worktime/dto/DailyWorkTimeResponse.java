@@ -18,6 +18,6 @@ public class DailyWorkTimeResponse {
         return LocalDate
                 .parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 .getDayOfWeek()
-                .getDisplayName(TextStyle.FULL, Locale.getDefault());
+                .getDisplayName(TextStyle.FULL, Locale.forLanguageTag("pl"));
     }
 }
