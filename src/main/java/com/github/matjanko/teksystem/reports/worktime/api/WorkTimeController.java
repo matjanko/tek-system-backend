@@ -1,6 +1,8 @@
 package com.github.matjanko.teksystem.reports.worktime.api;
 
+import com.github.matjanko.teksystem.reports.worktime.dto.DailyWorkTimeResponse;
 import com.github.matjanko.teksystem.reports.worktime.dto.MonthlyWorkTimeResponse;
+import com.github.matjanko.teksystem.reports.worktime.model.DailyWorkTimeRepository;
 import com.github.matjanko.teksystem.reports.worktime.model.MonthlyWorkTimeRepository;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -22,16 +24,30 @@ import java.util.stream.Collectors;
 public class WorkTimeController {
 
     private final MonthlyWorkTimeRepository monthlyWorkTimeRepository;
+    private final DailyWorkTimeRepository dailyWorkTimeRepository;
     private final ModelMapper mapper;
 
-    @GetMapping("/all/year/{year}/month/{month}")
-    public ResponseEntity<List<MonthlyWorkTimeResponse>> getMonthlyWorkTime(
+    @GetMapping("/monthly/all/year/{year}/month/{month}")
+    public ResponseEntity<List<MonthlyWorkTimeResponse>> getMonthlyWorkTimeList(
             @PathVariable String year, @PathVariable String month) {
 
         List<MonthlyWorkTimeResponse> workTimes = monthlyWorkTimeRepository
                 .findAllByYearAndMonth(year, month)
                 .stream()
                 .map(wt -> mapper.map(wt, MonthlyWorkTimeResponse.class))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(workTimes, HttpStatus.OK);
+    }
+
+    @GetMapping("/daily/all/year/{year}/month/{month}/employee/{employeeId}")
+    public ResponseEntity<List<DailyWorkTimeResponse>> getDailylyWorkTimeList(
+            @PathVariable String year, @PathVariable String month, @PathVariable Long employeeId) {
+
+        List<DailyWorkTimeResponse> workTimes = dailyWorkTimeRepository
+                .findAllByYearAndMonthAndEmployeeId(year, month, employeeId)
+                .stream()
+                .map(wt -> mapper.map(wt, DailyWorkTimeResponse.class))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(workTimes, HttpStatus.OK);
