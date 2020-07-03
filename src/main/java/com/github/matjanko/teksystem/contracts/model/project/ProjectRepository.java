@@ -10,7 +10,6 @@ import java.util.List;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     @EntityGraph(type = EntityGraph.EntityGraphType.LOAD, attributePaths = {"customer"})
-    @Override
-    List<Project> findAll();
+    List<Project> findAllByOrderByNumberDesc();
 
 }

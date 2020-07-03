@@ -21,7 +21,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectResponse> getAll() {
-        return projectRepository.findAll().stream()
+        return projectRepository.findAllByOrderByNumberDesc().stream()
                 .map(p -> mapper.map(p, ProjectResponse.class))
                 .collect(Collectors.toList());
     }
