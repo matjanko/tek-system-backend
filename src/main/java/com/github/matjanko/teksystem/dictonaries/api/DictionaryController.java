@@ -3,6 +3,8 @@ package com.github.matjanko.teksystem.dictonaries.api;
 import com.github.matjanko.teksystem.dictonaries.dto.DictionaryDto;
 import com.github.matjanko.teksystem.dictonaries.model.Dictionary;
 import com.github.matjanko.teksystem.dictonaries.model.customer.CustomerDictionaryRepository;
+import com.github.matjanko.teksystem.dictonaries.model.project.ProjectDictionary;
+import com.github.matjanko.teksystem.dictonaries.model.project.ProjectDictionaryRepository;
 import com.github.matjanko.teksystem.dictonaries.model.projectstage.ProjectStageDictionaryRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,7 @@ public class DictionaryController {
 
     private final ProjectStageDictionaryRepository projectStageDictionaryRepository;
     private final CustomerDictionaryRepository customerDictionaryRepository;
+    private final ProjectDictionaryRepository projectDictionaryRepository;
     private final ModelMapper mapper;
 
     @GetMapping("/project-stages")
@@ -58,6 +62,18 @@ public class DictionaryController {
                 .findAll()
                 .stream()
                 .map(Dictionary::getName)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(dict, HttpStatus.OK);
+    }
+
+    @GetMapping("/projects/indexes")
+    @ApiOperation(value = "Get project indexes dictionary")
+    public ResponseEntity<List<String>> getProjectIndexesDictionary() {
+        List<String> dict = projectDictionaryRepository
+                .findAll()
+                .stream()
+                .map(ProjectDictionary::getIndex)
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(dict, HttpStatus.OK);
