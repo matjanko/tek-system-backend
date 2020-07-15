@@ -18,8 +18,8 @@ public class EmployeeTask {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "EMPLOYEE_LOGIN")
-    private String login;
+    @Column(name = "EMPLOYEE_NAME")
+    private String employeeName;
 
     @Column(name = "PROJECT_NUMBER")
     private String projectNumber;
