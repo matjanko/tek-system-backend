@@ -3,10 +3,7 @@ package com.github.matjanko.teksystem.reports.tasks.api;
 import com.github.matjanko.teksystem.reports.tasks.dto.EmployeeTaskResponse;
 import com.github.matjanko.teksystem.reports.tasks.model.EmployeeTask;
 import com.github.matjanko.teksystem.reports.tasks.model.EmployeeTaskRepository;
-import com.github.matjanko.teksystem.reports.tasks.model.spec.EmployeeTaskWithCustomerName;
-import com.github.matjanko.teksystem.reports.tasks.model.spec.EmployeeTaskWithEmployeeName;
-import com.github.matjanko.teksystem.reports.tasks.model.spec.EmployeeTaskWithProjectName;
-import com.github.matjanko.teksystem.reports.tasks.model.spec.EmployeeTaskWithProjectNumber;
+import com.github.matjanko.teksystem.reports.tasks.model.spec.*;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -51,7 +48,8 @@ public class EmployeeTaskController {
                 .where(new EmployeeTaskWithEmployeeName(employeeName))
                 .and(new EmployeeTaskWithProjectNumber(projectNumber))
                 .and(new EmployeeTaskWithCustomerName(customerName))
-                .and(new EmployeeTaskWithProjectName(projectName));
+                .and(new EmployeeTaskWithProjectName(projectName))
+                .and(new EmployeeTaskWithProjectStageName(projectStageName));
 
         List<EmployeeTaskResponse> tasks = employeeTaskRepository
                 .findAll(specification)
