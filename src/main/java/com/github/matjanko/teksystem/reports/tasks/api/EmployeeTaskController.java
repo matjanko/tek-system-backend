@@ -49,7 +49,11 @@ public class EmployeeTaskController {
                 .and(new EmployeeTaskWithProjectNumber(projectNumber))
                 .and(new EmployeeTaskWithCustomerName(customerName))
                 .and(new EmployeeTaskWithProjectName(projectName))
-                .and(new EmployeeTaskWithProjectStageName(projectStageName));
+                .and(new EmployeeTaskWithProjectStageName(projectStageName))
+                .and(new EmployeeTaskWithFirstActivity(firstActivity))
+                .and(new EmployeeTaskWithSecondActivity(secondActivity))
+                .and(new EmployeeTaskWithThirdActivity(thirdActivity))
+                .and(new EmployeeTaskWithSoftware(software));
 
         List<EmployeeTaskResponse> tasks = employeeTaskRepository
                 .findAll(specification)
