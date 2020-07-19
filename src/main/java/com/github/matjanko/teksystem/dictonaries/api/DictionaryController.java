@@ -3,6 +3,7 @@ package com.github.matjanko.teksystem.dictonaries.api;
 import com.github.matjanko.teksystem.dictonaries.dto.DictionaryDto;
 import com.github.matjanko.teksystem.dictonaries.model.Dictionary;
 import com.github.matjanko.teksystem.dictonaries.model.customer.CustomerDictionaryRepository;
+import com.github.matjanko.teksystem.dictonaries.model.employee.EmployeeDictionaryRepository;
 import com.github.matjanko.teksystem.dictonaries.model.project.ProjectDictionary;
 import com.github.matjanko.teksystem.dictonaries.model.project.ProjectDictionaryRepository;
 import com.github.matjanko.teksystem.dictonaries.model.projectstage.ProjectStageDictionaryRepository;
@@ -29,6 +30,7 @@ public class DictionaryController {
     private final ProjectStageDictionaryRepository projectStageDictionaryRepository;
     private final CustomerDictionaryRepository customerDictionaryRepository;
     private final ProjectDictionaryRepository projectDictionaryRepository;
+    private final EmployeeDictionaryRepository employeeDictionaryRepository;
     private final ModelMapper mapper;
 
     @GetMapping("/project-stages")
@@ -74,6 +76,18 @@ public class DictionaryController {
                 .findAll()
                 .stream()
                 .map(ProjectDictionary::getIndex)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(dict, HttpStatus.OK);
+    }
+
+    @GetMapping("/employees")
+    @ApiOperation(value = "Get employee dictionary")
+    public ResponseEntity<List<DictionaryDto>> getEmployeeDictionary() {
+        List<DictionaryDto> dict = employeeDictionaryRepository
+                .findAll()
+                .stream()
+                .map(ps -> mapper.map(ps, DictionaryDto.class))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(dict, HttpStatus.OK);
