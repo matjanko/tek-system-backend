@@ -53,7 +53,11 @@ public class EmployeeTaskController {
                 .and(new EmployeeTaskWithFirstActivity(firstActivity))
                 .and(new EmployeeTaskWithSecondActivity(secondActivity))
                 .and(new EmployeeTaskWithThirdActivity(thirdActivity))
-                .and(new EmployeeTaskWithSoftware(software));
+                .and(new EmployeeTaskWithSoftware(software))
+                .and(new EmployeeTaskWithAdditionalCost(isAddCost))
+                .and(new EmployeeTaskWithMistake(isMistake))
+                .and(new EmployeeTaskWithStartTime(startTime))
+                .and(new EmployeeTaskWithEndTime(endTime));
 
         List<EmployeeTaskResponse> tasks = employeeTaskRepository
                 .findAll(specification)
