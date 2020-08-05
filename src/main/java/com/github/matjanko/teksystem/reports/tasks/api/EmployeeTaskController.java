@@ -30,7 +30,7 @@ public class EmployeeTaskController {
 
     @GetMapping
     public ResponseEntity<List<EmployeeTaskResponse>> getEmployeeTasks(
-            @RequestParam(value = "employeeName", required = false) String employeeName,
+            @RequestParam(value = "employeeId", required = false) Long employeeId,
             @RequestParam(value = "projectNumber", required = false) String projectNumber,
             @RequestParam(value = "customerName", required = false) String customerName,
             @RequestParam(value = "projectName", required = false) String projectName,
@@ -45,7 +45,7 @@ public class EmployeeTaskController {
             @RequestParam(value = "endTime", required = false) LocalDateTime endTime) {
 
         Specification<EmployeeTask> specification = Specification
-                .where(new EmployeeTaskWithEmployeeName(employeeName))
+                .where(new EmployeeTaskWithEmployeeId(employeeId))
                 .and(new EmployeeTaskWithProjectNumber(projectNumber))
                 .and(new EmployeeTaskWithCustomerName(customerName))
                 .and(new EmployeeTaskWithProjectName(projectName))

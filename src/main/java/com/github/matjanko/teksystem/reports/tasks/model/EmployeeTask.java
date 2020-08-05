@@ -18,6 +18,9 @@ public class EmployeeTask {
     @Column(name = "ID")
     private Long id;
 
+    @Column(name = "EMPLOYEE_ID")
+    private Long employeeId;
+
     @Column(name = "EMPLOYEE_NAME")
     private String employeeName;
 
