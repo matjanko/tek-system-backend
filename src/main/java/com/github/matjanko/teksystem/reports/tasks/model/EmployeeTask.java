@@ -27,6 +27,9 @@ public class EmployeeTask {
     @Column(name = "PROJECT_NUMBER")
     private String projectNumber;
 
+    @Column(name = "CUSTOMER_ID")
+    private Long customerId;
+
     @Column(name = "CUSTOMER_NAME")
     private String customerName;
 

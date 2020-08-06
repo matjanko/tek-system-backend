@@ -10,15 +10,15 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 @AllArgsConstructor
-public class EmployeeTaskWithCustomerName implements Specification<EmployeeTask> {
+public class EmployeeTaskWithCustomerId implements Specification<EmployeeTask> {
 
-    private final String customerName;
+    private final Long customerId;
 
     @Override
     public Predicate toPredicate(Root<EmployeeTask> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-        if (customerName == null) {
+        if (customerId == null) {
             return cb.isTrue(cb.literal(true));
         }
-        return cb.equal(root.get("customerName"), this.customerName);
+        return cb.equal(root.get("customerId"), this.customerId);
     }
 }
