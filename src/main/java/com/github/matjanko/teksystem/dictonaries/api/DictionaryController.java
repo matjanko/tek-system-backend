@@ -1,6 +1,7 @@
 package com.github.matjanko.teksystem.dictonaries.api;
 
 import com.github.matjanko.teksystem.dictonaries.dto.DictionaryDto;
+import com.github.matjanko.teksystem.dictonaries.dto.ProjectDictionaryDto;
 import com.github.matjanko.teksystem.dictonaries.model.Dictionary;
 import com.github.matjanko.teksystem.dictonaries.model.customer.CustomerDictionaryRepository;
 import com.github.matjanko.teksystem.dictonaries.model.employee.EmployeeDictionaryRepository;
@@ -64,6 +65,18 @@ public class DictionaryController {
                 .findAll()
                 .stream()
                 .map(Dictionary::getName)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(dict, HttpStatus.OK);
+    }
+
+    @GetMapping("/projects")
+    @ApiOperation(value = "Get projects dictionary")
+    public ResponseEntity<List<ProjectDictionaryDto>> getProjectsDictionary() {
+        List<ProjectDictionaryDto> dict = projectDictionaryRepository
+                .findAll()
+                .stream()
+                .map(p -> mapper.map(p, ProjectDictionaryDto.class))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(dict, HttpStatus.OK);
