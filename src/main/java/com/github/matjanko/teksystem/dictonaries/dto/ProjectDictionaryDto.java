@@ -6,4 +6,5 @@ import lombok.Data;
 public class ProjectDictionaryDto extends DictionaryDto {
 
     private String index;
+    private String customerName;
 }
