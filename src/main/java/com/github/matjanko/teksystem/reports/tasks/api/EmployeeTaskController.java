@@ -31,9 +31,8 @@ public class EmployeeTaskController {
     @GetMapping
     public ResponseEntity<List<EmployeeTaskResponse>> getEmployeeTasks(
             @RequestParam(value = "employeeId", required = false) Long employeeId,
-            @RequestParam(value = "projectNumber", required = false) String projectNumber,
             @RequestParam(value = "customerId", required = false) Long customerId,
-            @RequestParam(value = "projectName", required = false) String projectName,
+            @RequestParam(value = "projectId", required = false) Long projectId,
             @RequestParam(value = "projectStageName", required = false) String projectStageName,
             @RequestParam(value = "firstActivity", required = false) String firstActivity,
             @RequestParam(value = "secondActivity", required = false) String secondActivity,
@@ -46,9 +45,8 @@ public class EmployeeTaskController {
 
         Specification<EmployeeTask> specification = Specification
                 .where(new EmployeeTaskWithEmployeeId(employeeId))
-                .and(new EmployeeTaskWithProjectNumber(projectNumber))
+                .and(new EmployeeTaskWithProjectId(projectId))
                 .and(new EmployeeTaskWithCustomerId(customerId))
-                .and(new EmployeeTaskWithProjectName(projectName))
                 .and(new EmployeeTaskWithProjectStageName(projectStageName))
                 .and(new EmployeeTaskWithFirstActivity(firstActivity))
                 .and(new EmployeeTaskWithSecondActivity(secondActivity))
