@@ -33,7 +33,7 @@ public class EmployeeTaskController {
             @RequestParam(value = "employeeId", required = false) Long employeeId,
             @RequestParam(value = "customerId", required = false) Long customerId,
             @RequestParam(value = "projectId", required = false) Long projectId,
-            @RequestParam(value = "projectStageName", required = false) String projectStageName,
+            @RequestParam(value = "projectStageId", required = false) Long projectStageId,
             @RequestParam(value = "firstActivity", required = false) String firstActivity,
             @RequestParam(value = "secondActivity", required = false) String secondActivity,
             @RequestParam(value = "thirdActivity", required = false) String thirdActivity,
@@ -47,7 +47,7 @@ public class EmployeeTaskController {
                 .where(new EmployeeTaskWithEmployeeId(employeeId))
                 .and(new EmployeeTaskWithProjectId(projectId))
                 .and(new EmployeeTaskWithCustomerId(customerId))
-                .and(new EmployeeTaskWithProjectStageName(projectStageName))
+                .and(new EmployeeTaskWithProjectStageId(projectStageId))
                 .and(new EmployeeTaskWithFirstActivity(firstActivity))
                 .and(new EmployeeTaskWithSecondActivity(secondActivity))
                 .and(new EmployeeTaskWithThirdActivity(thirdActivity))

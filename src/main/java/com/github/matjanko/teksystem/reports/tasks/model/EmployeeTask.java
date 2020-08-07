@@ -39,6 +39,9 @@ public class EmployeeTask {
     @Column(name = "PROJECT_NAME")
     private String projectName;
 
+    @Column(name = "PROJECT_STAGE_ID")
+    private Long projectStageId;
+
     @Column(name = "PROJECT_STAGE_NAME")
     private String projectStageName;
 
