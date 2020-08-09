@@ -45,6 +45,9 @@ public class EmployeeTask {
     @Column(name = "PROJECT_STAGE_NAME")
     private String projectStageName;
 
+    @Column(name = "FIRST_ACTIVITY_ID")
+    private Long firstActivityId;
+
     @Column(name = "FIRST_ACTIVITY")
     private String firstActivity;
 
