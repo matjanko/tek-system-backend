@@ -4,6 +4,7 @@ import com.github.matjanko.teksystem.dictonaries.dto.DictionaryDto;
 import com.github.matjanko.teksystem.dictonaries.dto.ProjectDictionaryDto;
 import com.github.matjanko.teksystem.dictonaries.model.Dictionary;
 import com.github.matjanko.teksystem.dictonaries.model.activity.ActivityCategoryDictionaryRepository;
+import com.github.matjanko.teksystem.dictonaries.model.activity.ActivityElementDictionaryRepository;
 import com.github.matjanko.teksystem.dictonaries.model.activity.ActivitySubcategoryDictionaryRepository;
 import com.github.matjanko.teksystem.dictonaries.model.customer.CustomerDictionaryRepository;
 import com.github.matjanko.teksystem.dictonaries.model.employee.EmployeeDictionaryRepository;
@@ -34,6 +35,7 @@ public class DictionaryController {
     private final EmployeeDictionaryRepository employeeDictionaryRepository;
     private final ActivityCategoryDictionaryRepository activityCategoryDictionaryRepository;
     private final ActivitySubcategoryDictionaryRepository activitySubcategoryDictionaryRepository;
+    private final ActivityElementDictionaryRepository activityElementDictionaryRepository;
     private final ModelMapper mapper;
 
     @GetMapping("/project-stages")
@@ -125,6 +127,18 @@ public class DictionaryController {
     public ResponseEntity<List<DictionaryDto>> getActivitySubcategoriesDictionary(@PathVariable Long id) {
         List<DictionaryDto> dict = activitySubcategoryDictionaryRepository
                 .findAllByCategoryId(id)
+                .stream()
+                .map(ps -> mapper.map(ps, DictionaryDto.class))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(dict, HttpStatus.OK);
+    }
+
+    @GetMapping("/activity/elements/subcategory/{id}")
+    @ApiOperation(value = "Get activity elements dictionary")
+    public ResponseEntity<List<DictionaryDto>> getActivityElementsDictionary(@PathVariable Long id) {
+        List<DictionaryDto> dict = activityElementDictionaryRepository
+                .findAllBySubcategoryId(id)
                 .stream()
                 .map(ps -> mapper.map(ps, DictionaryDto.class))
                 .collect(Collectors.toList());
