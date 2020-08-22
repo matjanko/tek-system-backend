@@ -36,7 +36,7 @@ public class EmployeeTaskController {
             @RequestParam(value = "projectStageId", required = false) Long projectStageId,
             @RequestParam(value = "activityCategoryId", required = false) Long activityCategoryId,
             @RequestParam(value = "activitySubcategoryId", required = false) Long activitySubcategoryId,
-            @RequestParam(value = "thirdActivity", required = false) String thirdActivity,
+            @RequestParam(value = "activityElementId", required = false) Long activityElementId,
             @RequestParam(value = "software", required = false) String software,
             @RequestParam(value = "isAddCost", required = false) boolean isAddCost,
             @RequestParam(value = "isMistake", required = false) boolean isMistake,
@@ -50,7 +50,7 @@ public class EmployeeTaskController {
                 .and(new EmployeeTaskWithProjectStageId(projectStageId))
                 .and(new EmployeeTaskWithFirstActivityId(activityCategoryId))
                 .and(new EmployeeTaskWithSecondActivityId(activitySubcategoryId))
-                .and(new EmployeeTaskWithThirdActivity(thirdActivity))
+                .and(new EmployeeTaskWithThirdActivityId(activityElementId))
                 .and(new EmployeeTaskWithSoftware(software))
                 .and(new EmployeeTaskWithAdditionalCost(isAddCost))
                 .and(new EmployeeTaskWithMistake(isMistake))

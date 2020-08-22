@@ -57,6 +57,9 @@ public class EmployeeTask {
     @Column(name = "SECOND_ACTIVITY")
     private String secondActivity;
 
+    @Column(name = "THIRD_ACTIVITY_ID")
+    private Long thirdActivityId;
+
     @Column(name = "THIRD_ACTIVITY")
     private String thirdActivity;
 
