@@ -31,13 +31,12 @@ public class EmployeeTaskController {
     @GetMapping
     public ResponseEntity<List<EmployeeTaskResponse>> getEmployeeTasks(
             @RequestParam(value = "employeeId", required = false) Long employeeId,
-            @RequestParam(value = "projectNumber", required = false) String projectNumber,
             @RequestParam(value = "customerId", required = false) Long customerId,
-            @RequestParam(value = "projectName", required = false) String projectName,
-            @RequestParam(value = "projectStageName", required = false) String projectStageName,
-            @RequestParam(value = "firstActivity", required = false) String firstActivity,
-            @RequestParam(value = "secondActivity", required = false) String secondActivity,
-            @RequestParam(value = "thirdActivity", required = false) String thirdActivity,
+            @RequestParam(value = "projectId", required = false) Long projectId,
+            @RequestParam(value = "projectStageId", required = false) Long projectStageId,
+            @RequestParam(value = "activityCategoryId", required = false) Long activityCategoryId,
+            @RequestParam(value = "activitySubcategoryId", required = false) Long activitySubcategoryId,
+            @RequestParam(value = "activityElementId", required = false) Long activityElementId,
             @RequestParam(value = "software", required = false) String software,
             @RequestParam(value = "isAddCost", required = false) boolean isAddCost,
             @RequestParam(value = "isMistake", required = false) boolean isMistake,
@@ -46,13 +45,12 @@ public class EmployeeTaskController {
 
         Specification<EmployeeTask> specification = Specification
                 .where(new EmployeeTaskWithEmployeeId(employeeId))
-                .and(new EmployeeTaskWithProjectNumber(projectNumber))
+                .and(new EmployeeTaskWithProjectId(projectId))
                 .and(new EmployeeTaskWithCustomerId(customerId))
-                .and(new EmployeeTaskWithProjectName(projectName))
-                .and(new EmployeeTaskWithProjectStageName(projectStageName))
-                .and(new EmployeeTaskWithFirstActivity(firstActivity))
-                .and(new EmployeeTaskWithSecondActivity(secondActivity))
-                .and(new EmployeeTaskWithThirdActivity(thirdActivity))
+                .and(new EmployeeTaskWithProjectStageId(projectStageId))
+                .and(new EmployeeTaskWithFirstActivityId(activityCategoryId))
+                .and(new EmployeeTaskWithSecondActivityId(activitySubcategoryId))
+                .and(new EmployeeTaskWithThirdActivityId(activityElementId))
                 .and(new EmployeeTaskWithSoftware(software))
                 .and(new EmployeeTaskWithAdditionalCost(isAddCost))
                 .and(new EmployeeTaskWithMistake(isMistake))

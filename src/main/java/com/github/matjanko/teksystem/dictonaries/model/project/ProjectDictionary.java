@@ -15,4 +15,7 @@ public class ProjectDictionary extends Dictionary {
     @Column(name = "PROJECT_INDEX")
     private String index;
 
+    @Column(name = "CUSTOMER_NAME")
+    private String customerName;
+
 }

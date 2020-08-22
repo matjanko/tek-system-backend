@@ -24,6 +24,9 @@ public class EmployeeTask {
     @Column(name = "EMPLOYEE_NAME")
     private String employeeName;
 
+    @Column(name = "PROJECT_ID")
+    private Long projectId;
+
     @Column(name = "PROJECT_NUMBER")
     private String projectNumber;
 
@@ -36,14 +39,26 @@ public class EmployeeTask {
     @Column(name = "PROJECT_NAME")
     private String projectName;
 
+    @Column(name = "PROJECT_STAGE_ID")
+    private Long projectStageId;
+
     @Column(name = "PROJECT_STAGE_NAME")
     private String projectStageName;
+
+    @Column(name = "FIRST_ACTIVITY_ID")
+    private Long firstActivityId;
 
     @Column(name = "FIRST_ACTIVITY")
     private String firstActivity;
 
+    @Column(name = "SECOND_ACTIVITY_ID")
+    private Long secondActivityId;
+
     @Column(name = "SECOND_ACTIVITY")
     private String secondActivity;
+
+    @Column(name = "THIRD_ACTIVITY_ID")
+    private Long thirdActivityId;
 
     @Column(name = "THIRD_ACTIVITY")
     private String thirdActivity;
