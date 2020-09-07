@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -40,8 +43,8 @@ public class EmployeeTaskController {
             @RequestParam(value = "software", required = false) String software,
             @RequestParam(value = "isAddCost", required = false) boolean isAddCost,
             @RequestParam(value = "isMistake", required = false) boolean isMistake,
-            @RequestParam(value = "startTime", required = false) LocalDateTime startTime,
-            @RequestParam(value = "endTime", required = false) LocalDateTime endTime) {
+            @RequestParam(value = "startTime", required = false) String startTime,
+            @RequestParam(value = "endTime", required = false) String endTime) {
 
         Specification<EmployeeTask> specification = Specification
                 .where(new EmployeeTaskWithEmployeeId(employeeId))
@@ -54,8 +57,8 @@ public class EmployeeTaskController {
                 .and(new EmployeeTaskWithSoftware(software))
                 .and(new EmployeeTaskWithAdditionalCost(isAddCost))
                 .and(new EmployeeTaskWithMistake(isMistake))
-                .and(new EmployeeTaskWithStartTime(startTime))
-                .and(new EmployeeTaskWithEndTime(endTime));
+                .and(new EmployeeTaskWithStartTime(startTime)
+                .and(new EmployeeTaskWithEndTime(endTime)));
 
         List<EmployeeTaskResponse> tasks = employeeTaskRepository
                 .findAll(specification)
